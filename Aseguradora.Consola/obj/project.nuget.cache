@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "blVDWeJSsb8wWLBizyX7dIfvhY9NOQMgybhk0kJxWbOJfVQDp+kNSGSVh9TsMwkA9rj+RW7P4+IC0e0xZHSl/Q==",
+  "success": true,
+  "projectFilePath": "/home/ekusz/Downloads/Aseguradora/Aseguradora.Consola/Aseguradora.Consola.csproj",
+  "expectedPackageFiles": [
+    "/home/ekusz/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.3/microsoft.aspnetcore.app.ref.7.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
