@@ -1,10 +1,33 @@
 {
   "version": 2,
-  "dgSpecHash": "+h8c1wkZfl6qgwRiodvCAjYKPTSy0Yep2ZIG8hSTiDNzDJD6hGWy3YJPPbPs/cE5u09mMdPTBrtGLmXzzYv+zQ==",
+  "dgSpecHash": "+0WMm9leZbQkDS2uEQvU8uYG9VxJzsgLgq5jT+FytSllHJuynGGxsqqx4k4LOuy8Qstr9lyzd1zznANB7PFMwQ==",
   "success": true,
-  "projectFilePath": "/home/ekusz/Downloads/Aseguradora/Aseguradora.Repositorios/Aseguradora.Repositorios.csproj",
+  "projectFilePath": "/home/alumnos/Documentos/Aseguradora (1)/Aseguradora.Repositorios/Aseguradora.Repositorios.csproj",
   "expectedPackageFiles": [
-    "/home/ekusz/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.3/microsoft.aspnetcore.app.ref.7.0.3.nupkg.sha512"
+    "/home/alumnos/.nuget/packages/microsoft.data.sqlite.core/7.0.5/microsoft.data.sqlite.core.7.0.5.nupkg.sha512",
+    "/home/alumnos/.nuget/packages/microsoft.entityframeworkcore/7.0.5/microsoft.entityframeworkcore.7.0.5.nupkg.sha512",
+    "/home/alumnos/.nuget/packages/microsoft.entityframeworkcore.abstractions/7.0.5/microsoft.entityframeworkcore.abstractions.7.0.5.nupkg.sha512",
+    "/home/alumnos/.nuget/packages/microsoft.entityframeworkcore.analyzers/7.0.5/microsoft.entityframeworkcore.analyzers.7.0.5.nupkg.sha512",
+    "/home/alumnos/.nuget/packages/microsoft.entityframeworkcore.relational/7.0.5/microsoft.entityframeworkcore.relational.7.0.5.nupkg.sha512",
+    "/home/alumnos/.nuget/packages/microsoft.entityframeworkcore.sqlite/7.0.5/microsoft.entityframeworkcore.sqlite.7.0.5.nupkg.sha512",
+    "/home/alumnos/.nuget/packages/microsoft.entityframeworkcore.sqlite.core/7.0.5/microsoft.entityframeworkcore.sqlite.core.7.0.5.nupkg.sha512",
+    "/home/alumnos/.nuget/packages/microsoft.extensions.caching.abstractions/7.0.0/microsoft.extensions.caching.abstractions.7.0.0.nupkg.sha512",
+    "/home/alumnos/.nuget/packages/microsoft.extensions.caching.memory/7.0.0/microsoft.extensions.caching.memory.7.0.0.nupkg.sha512",
+    "/home/alumnos/.nuget/packages/microsoft.extensions.configuration.abstractions/7.0.0/microsoft.extensions.configuration.abstractions.7.0.0.nupkg.sha512",
+    "/home/alumnos/.nuget/packages/microsoft.extensions.dependencyinjection/7.0.0/microsoft.extensions.dependencyinjection.7.0.0.nupkg.sha512",
+    "/home/alumnos/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/7.0.0/microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512",
+    "/home/alumnos/.nuget/packages/microsoft.extensions.dependencymodel/7.0.0/microsoft.extensions.dependencymodel.7.0.0.nupkg.sha512",
+    "/home/alumnos/.nuget/packages/microsoft.extensions.logging/7.0.0/microsoft.extensions.logging.7.0.0.nupkg.sha512",
+    "/home/alumnos/.nuget/packages/microsoft.extensions.logging.abstractions/7.0.0/microsoft.extensions.logging.abstractions.7.0.0.nupkg.sha512",
+    "/home/alumnos/.nuget/packages/microsoft.extensions.options/7.0.0/microsoft.extensions.options.7.0.0.nupkg.sha512",
+    "/home/alumnos/.nuget/packages/microsoft.extensions.primitives/7.0.0/microsoft.extensions.primitives.7.0.0.nupkg.sha512",
+    "/home/alumnos/.nuget/packages/sqlitepclraw.bundle_e_sqlite3/2.1.4/sqlitepclraw.bundle_e_sqlite3.2.1.4.nupkg.sha512",
+    "/home/alumnos/.nuget/packages/sqlitepclraw.core/2.1.4/sqlitepclraw.core.2.1.4.nupkg.sha512",
+    "/home/alumnos/.nuget/packages/sqlitepclraw.lib.e_sqlite3/2.1.4/sqlitepclraw.lib.e_sqlite3.2.1.4.nupkg.sha512",
+    "/home/alumnos/.nuget/packages/sqlitepclraw.provider.e_sqlite3/2.1.4/sqlitepclraw.provider.e_sqlite3.2.1.4.nupkg.sha512",
+    "/home/alumnos/.nuget/packages/system.memory/4.5.3/system.memory.4.5.3.nupkg.sha512",
+    "/home/alumnos/.nuget/packages/system.text.encodings.web/7.0.0/system.text.encodings.web.7.0.0.nupkg.sha512",
+    "/home/alumnos/.nuget/packages/system.text.json/7.0.0/system.text.json.7.0.0.nupkg.sha512"
   ],
   "logs": []
 }

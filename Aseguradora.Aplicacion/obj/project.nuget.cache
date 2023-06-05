@@ -1,10 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "XMHRHTGsrmxm9f4xIgLVfesGUvOxpNGfHA0kCT5L8oAf2wS5HhP7RaolWeQ8J3FGX8DSZj4M4aqftVHhA24mUw==",
+  "dgSpecHash": "RcFtCBIe0uClwxHy3mVqtAk39BxlKKBVm1sBLorjahf3BRl4epApnEtXB2Ke9pRbHbAOpUBv8D/aLXtGppFsng==",
   "success": true,
-  "projectFilePath": "/home/ekusz/Downloads/Aseguradora/Aseguradora.Aplicacion/Aseguradora.Aplicacion.csproj",
-  "expectedPackageFiles": [
-    "/home/ekusz/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.3/microsoft.aspnetcore.app.ref.7.0.3.nupkg.sha512"
-  ],
+  "projectFilePath": "/home/alumnos/Documentos/Aseguradora/Aseguradora.Aplicacion/Aseguradora.Aplicacion.csproj",
+  "expectedPackageFiles": [],
   "logs": []
 }

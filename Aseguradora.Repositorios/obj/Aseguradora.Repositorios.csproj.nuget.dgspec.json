@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/ekusz/Downloads/Aseguradora/Aseguradora.Repositorios/Aseguradora.Repositorios.csproj": {}
+    "/home/alumnos/Documentos/Aseguradora (1)/Aseguradora.Repositorios/Aseguradora.Repositorios.csproj": {}
   },
   "projects": {
-    "/home/ekusz/Downloads/Aseguradora/Aseguradora.Aplicacion/Aseguradora.Aplicacion.csproj": {
+    "/home/alumnos/Documentos/Aseguradora (1)/Aseguradora.Aplicacion/Aseguradora.Aplicacion.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/ekusz/Downloads/Aseguradora/Aseguradora.Aplicacion/Aseguradora.Aplicacion.csproj",
+        "projectUniqueName": "/home/alumnos/Documentos/Aseguradora (1)/Aseguradora.Aplicacion/Aseguradora.Aplicacion.csproj",
         "projectName": "Aseguradora.Aplicacion",
-        "projectPath": "/home/ekusz/Downloads/Aseguradora/Aseguradora.Aplicacion/Aseguradora.Aplicacion.csproj",
-        "packagesPath": "/home/ekusz/.nuget/packages/",
-        "outputPath": "/home/ekusz/Downloads/Aseguradora/Aseguradora.Aplicacion/obj/",
+        "projectPath": "/home/alumnos/Documentos/Aseguradora (1)/Aseguradora.Aplicacion/Aseguradora.Aplicacion.csproj",
+        "packagesPath": "/home/alumnos/.nuget/packages/",
+        "outputPath": "/home/alumnos/Documentos/Aseguradora (1)/Aseguradora.Aplicacion/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/ekusz/.nuget/NuGet/NuGet.Config"
+          "/home/alumnos/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -48,32 +48,26 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[7.0.3, 7.0.3]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/7.0.103/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/7.0.202/RuntimeIdentifierGraph.json"
         }
       }
     },
-    "/home/ekusz/Downloads/Aseguradora/Aseguradora.Repositorios/Aseguradora.Repositorios.csproj": {
+    "/home/alumnos/Documentos/Aseguradora (1)/Aseguradora.Repositorios/Aseguradora.Repositorios.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/ekusz/Downloads/Aseguradora/Aseguradora.Repositorios/Aseguradora.Repositorios.csproj",
+        "projectUniqueName": "/home/alumnos/Documentos/Aseguradora (1)/Aseguradora.Repositorios/Aseguradora.Repositorios.csproj",
         "projectName": "Aseguradora.Repositorios",
-        "projectPath": "/home/ekusz/Downloads/Aseguradora/Aseguradora.Repositorios/Aseguradora.Repositorios.csproj",
-        "packagesPath": "/home/ekusz/.nuget/packages/",
-        "outputPath": "/home/ekusz/Downloads/Aseguradora/Aseguradora.Repositorios/obj/",
+        "projectPath": "/home/alumnos/Documentos/Aseguradora (1)/Aseguradora.Repositorios/Aseguradora.Repositorios.csproj",
+        "packagesPath": "/home/alumnos/.nuget/packages/",
+        "outputPath": "/home/alumnos/Documentos/Aseguradora (1)/Aseguradora.Repositorios/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/ekusz/.nuget/NuGet/NuGet.Config"
+          "/home/alumnos/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -85,8 +79,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "/home/ekusz/Downloads/Aseguradora/Aseguradora.Aplicacion/Aseguradora.Aplicacion.csproj": {
-                "projectPath": "/home/ekusz/Downloads/Aseguradora/Aseguradora.Aplicacion/Aseguradora.Aplicacion.csproj"
+              "/home/alumnos/Documentos/Aseguradora (1)/Aseguradora.Aplicacion/Aseguradora.Aplicacion.csproj": {
+                "projectPath": "/home/alumnos/Documentos/Aseguradora (1)/Aseguradora.Aplicacion/Aseguradora.Aplicacion.csproj"
               }
             }
           }
@@ -100,6 +94,12 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[7.0.5, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -111,18 +111,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[7.0.3, 7.0.3]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/7.0.103/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/7.0.202/RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -6,7 +6,7 @@ namespace Aseguradora.Aplicacion
         public string Dominio { get; set; }
         public string Marca { get; set; }
         public int Anio { get; set; }
-        public int TitularId { get; private set; }
+        public int TitularId { get;  set; }
         public Vehiculo( string dominio, string marca, int anio, int titularId)
         {
             this.Dominio = dominio;

@@ -13,12 +13,12 @@ namespace Aseguradora.Aplicacion
         public void Ejecutar(Poliza poliza)
         {
             List<Vehiculo> lista = _listarVehiculos.Ejecutar();
-            bool existe=false;
+            bool existe = false;
             foreach (Vehiculo v in lista)
             {
-                existe=existe ||(v.Id==poliza.VehiculoID);
+                existe = existe || (v.Id == poliza.VehiculoID);
             }
-            if(!existe)
+            if (!existe)
                 throw new Exception("No existe ningun vehiculo con ese ID");
 
             _repo.AgregarPoliza(poliza);
