@@ -11,11 +11,12 @@ namespace Aseguradora.Aplicacion
 
         public int Id { get; set; } = -1;
 
-        public Persona(int dni, string ap, string nom)
+        public Persona(int dni, string ap, string nom, string telefono)
         {
             this.Dni = dni;
             this.Apellido = ap;
             this.Nombre = nom;
+            this.Telefono = telefono;
         }
         public override string ToString()
         {

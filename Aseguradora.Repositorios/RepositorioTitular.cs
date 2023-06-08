@@ -3,82 +3,60 @@ namespace Aseguradora.Repositorios
 {
     public class RepositorioTitular : IRepositorioTitular
     {
-        private int _contador = 1;
-        readonly string _nombreArch = "titulares.txt";
-        public void AgregarTitular(Titular titular)//fachero
+
+        public void AgregarTitular(Titular titular)
         {
-            if (File.Exists(_nombreArch))
+            using (var context = new AseguradoraContext())
             {
-                using var sr = new StreamReader(_nombreArch);
-                while (!sr.EndOfStream)
+                bool existe = context.Titulares.FirstOrDefault(t => t.Dni == titular.Dni) !=null;
+                if (!existe)
                 {
-                    string? linea = sr.ReadLine() ?? "";
-                    if (int.Parse(linea.Split('#')[1]) == titular.Dni)
-                        throw new Exception($"Ya existe un titular con DNI = {titular.Dni}");
+                    context.Titulares.Add(titular);
+                    context.SaveChanges();
+                }
+                else
+                {
+                    throw new Exception("Ya existe un Titular con ese DNI ");
                 }
             }
-            using var sw = new StreamWriter(_nombreArch, true);
-            titular.Id = _contador++;
-            sw.WriteLine($"{titular.Id}#{titular.Dni}#{titular.Apellido}#{titular.Nombre}#{titular.Telefono}#{titular.Direccion}#{titular.Email}");
-
         }
 
         public void ModificarTitular(Titular titular)
         {
-            using var sr = new StreamReader(_nombreArch);
-            List<String> lineas = new List<string>();
-            while (!sr.EndOfStream)
+            using (var context = new AseguradoraContext())
             {
-                string linea = sr.ReadLine() ?? "";
-                if (int.Parse(linea.Split('#')[1]) != titular.Dni)
+                var titularViejo = context.Titulares.FirstOrDefault(t => t.Dni == titular.Dni);
+                if (titularViejo != null)
                 {
-                    lineas.Add(linea);
+                    titularViejo.Apellido = titular.Apellido;
+                    titularViejo.Nombre = titular.Nombre;
+                    titularViejo.Direccion = titular.Direccion;
+                    titularViejo.Telefono = titular.Telefono;
+                    titularViejo.Email = titular.Email;
+                    context.SaveChanges();
                 }
-                else
-                {
-                    titular.Id = int.Parse(linea.Split('#')[0]);
-                    lineas.Add($"{titular.Id}#{titular.Dni}#{titular.Apellido}#{titular.Nombre}#{titular.Telefono}#{titular.Direccion}#{titular.Email}");
-                }
-            }
-            using var sw = new StreamWriter(_nombreArch);
-            foreach (string item in lineas)
-            {
-                sw.WriteLine(item);
             }
         }
-        public void EliminarTitular(int id) //si es el que quiero eliminar no lo agrego a la lista la cual reescribo despues
+
+        public void EliminarTitular(int dni)
         {
-            using var sr = new StreamReader(_nombreArch);
-            List<String> lineas = new List<string>();
-            while (!sr.EndOfStream)
+            using (var context = new AseguradoraContext())
             {
-                string linea = sr.ReadLine() ?? "";
-                if (int.Parse(linea.Split('#')[0]) != id)
+                var titular = context.Titulares.FirstOrDefault(t => t.Dni == dni);
+                if (titular != null)
                 {
-                    lineas.Add(linea);
+                    context.Remove(titular);
+                    context.SaveChanges();
                 }
             }
-            using var sw = new StreamWriter(_nombreArch);
-            foreach (string item in lineas)
-            {
-                sw.WriteLine(item);
-            }
         }
+
         public List<Titular> ListarTitulares()
         {
-            var resultado = new List<Titular>();
-            using var sr = new StreamReader(_nombreArch);
-            while (!sr.EndOfStream)
+            using (var context = new AseguradoraContext())
             {
-                string[] campos = (sr.ReadLine() ?? "").Split('#');
-                var titular = new Titular(int.Parse(campos[1]), campos[2], campos[3]);
-                titular.Id = int.Parse(campos[0]);
-                titular.Telefono = campos[4];
-                titular.Email = campos[6] ?? "";
-                titular.Direccion = campos[5] ?? "";
-                resultado.Add(titular);
+                return context.Titulares.ToList();
             }
-            return resultado;
         }
     }
 }

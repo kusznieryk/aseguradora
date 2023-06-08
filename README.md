@@ -1,2 +1,2 @@
 # aseguradora
-primer entrega del proyecto desarrollado en .net utilizando arquitectura limpia y archivos de texto como repositorios.
+Segunda entrega del proyecto desarrollado en .net utilizando arquitectura limpia, sqlite y blazor.

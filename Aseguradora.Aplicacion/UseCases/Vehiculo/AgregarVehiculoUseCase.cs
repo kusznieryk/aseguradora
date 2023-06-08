@@ -3,7 +3,7 @@ namespace Aseguradora.Aplicacion
     public class AgregarVehiculoUseCase
     {
         private readonly IRepositorioVehiculo _repo;
-        private readonly ListarTitularesUseCase _listarTitulares;
+private readonly ListarTitularesUseCase _listarTitulares;
         public AgregarVehiculoUseCase(IRepositorioVehiculo repo, IRepositorioTitular repoT)
         {
             this._repo = repo;

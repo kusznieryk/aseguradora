@@ -1,87 +1,60 @@
 using Aseguradora.Aplicacion;
 namespace Aseguradora.Repositorios
 {
-    public class RepositorioPoliza:IRepositorioPoliza
+    public class RepositorioPoliza : IRepositorioPoliza
     {
-        private int _contador = 1;
-        readonly string _nombreArch = "poliza.txt";
-        public void AgregarPoliza(Poliza poliza)//fachero
-        {
-            if (File.Exists(_nombreArch))
-            {
-                using var sr = new StreamReader(_nombreArch);
-                while (!sr.EndOfStream)
-                {
-                    string? linea = sr.ReadLine() ?? "";
-                    if (int.Parse(linea.Split('#')[1]) == poliza.VehiculoID){
-                        Cobertura aux = new Cobertura();
-                        Enum.TryParse(linea.Split('#')[4], out aux);
-                        if(aux==poliza.Cobertura)
-                            throw new Exception($"Ya existe un poliza del vehiculo = {poliza.VehiculoID} con cobertura del tipo {poliza.Cobertura}");
-                    }
-                }
-            }
-            using var sw = new StreamWriter(_nombreArch, true);
-            poliza.Id = _contador++;
-            sw.WriteLine($"{poliza.Id}#{poliza.VehiculoID}#{poliza.ValorAsegurado}#{poliza.Franquicia}#{poliza.Cobertura}#{poliza.FechaInicio}#{poliza.FechaFin}");
 
+        public void AgregarPoliza(Poliza poliza)
+        {
+            using (var context = new AseguradoraContext())
+            {
+                    //si falla mirar aca p.Cobertura==poliza.Cobertura
+                    //no permitimos agregar polizas del pasado
+                    bool existe = context.Polizas.FirstOrDefault((p=>p.VehiculoID==poliza.VehiculoID && (poliza.FechaInicio<=p.FechaFin)))!=null;
+                    if(existe)
+                        throw new Exception("Ya existe una Poliza con ese vehiculo id en ese rango de tiempo");
+                    context.Add(poliza);
+                    context.SaveChanges();
+            }
         }
 
         public void ModificarPoliza(Poliza poliza)
         {
-            using var sr = new StreamReader(_nombreArch);
-            List<String> lineas = new List<string>();
-            while (!sr.EndOfStream)
+            using (var context = new AseguradoraContext())
             {
-                string linea = sr.ReadLine() ?? "";
-                if (int.Parse(linea.Split('#')[1]) != poliza.VehiculoID)
+                var polizaViejo = context.Polizas.FirstOrDefault(p => p.Id == poliza.Id);
+                if (polizaViejo != null)
                 {
-                    lineas.Add(linea);
+                    polizaViejo.VehiculoID = poliza.VehiculoID;
+                    polizaViejo.ValorAsegurado = poliza.ValorAsegurado;
+                    polizaViejo.Franquicia = poliza.Franquicia;
+                    polizaViejo.Cobertura = poliza.Cobertura;
+                    polizaViejo.FechaInicio = poliza.FechaInicio;
+                    polizaViejo.FechaFin = poliza.FechaFin;
+                    context.SaveChanges();
                 }
-                else
-                {
-                    poliza.Id = int.Parse(linea.Split('#')[0]);
-                    lineas.Add($"{poliza.Id}#{poliza.VehiculoID}#{poliza.ValorAsegurado}#{poliza.Franquicia}#{poliza.Cobertura}#{poliza.FechaInicio}#{poliza.FechaFin}");
-                }
-            }
-            using var sw = new StreamWriter(_nombreArch);
-            foreach (string item in lineas)
-            {
-                sw.WriteLine(item);
             }
         }
 
-        public void EliminarPoliza(int id) //si es el que quiero eliminar no lo agrego a la lista la cual reescribo despues
+        public void EliminarPoliza(int id)
         {
-            using var sr = new StreamReader(_nombreArch);
-            List<String> lineas = new List<string>();
-            while (!sr.EndOfStream)
+            using (var context = new AseguradoraContext())
             {
-                string linea = sr.ReadLine() ?? "";
-                if (int.Parse(linea.Split('#')[0]) != id)
+                var poliza = context.Polizas.FirstOrDefault(v => v.Id == id);
+                if (poliza != null)
                 {
-                    lineas.Add(linea);
+                    context.Remove(poliza);
+                    context.SaveChanges();
                 }
-            }
-            using var sw = new StreamWriter(_nombreArch);
-            foreach (string item in lineas)
-            {
-                sw.WriteLine(item);
             }
         }
 
         public List<Poliza> ListarPolizas()
         {
-            var resultado = new List<Poliza>();
-            using var sr = new StreamReader(_nombreArch);
-            while (!sr.EndOfStream)
+            using (var context = new AseguradoraContext())
             {
-                string[] campos = (sr.ReadLine() ?? "").Split('#');
-                var poliza = new Poliza(int.Parse(campos[1]), decimal.Parse(campos[2]), decimal.Parse(campos[3]), campos[4], DateTime.Parse(campos[5]), DateTime.Parse(campos[6]));
-                poliza.Id = int.Parse(campos[0]);
-                resultado.Add(poliza);
+                return context.Polizas.ToList();
             }
-            return resultado;
         }
     }
 }

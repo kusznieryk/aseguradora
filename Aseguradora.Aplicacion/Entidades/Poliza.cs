@@ -3,7 +3,7 @@ namespace Aseguradora.Aplicacion
     public class Poliza
     {
         public int Id { get; set; } = -1;
-        public int VehiculoID { get; private set; }
+        public int VehiculoID { get; set; }
         public decimal ValorAsegurado { get; set; }
         public decimal Franquicia { get; set; }
         public Cobertura Cobertura { get; set; }

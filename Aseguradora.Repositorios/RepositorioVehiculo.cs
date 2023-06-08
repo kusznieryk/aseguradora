@@ -1,83 +1,61 @@
 using Aseguradora.Aplicacion;
 namespace Aseguradora.Repositorios
 {
-    public class RepositorioVehiculo:IRepositorioVehiculo
+    public class RepositorioVehiculo : IRepositorioVehiculo
     {
-        private int _contador = 1;
-        readonly string _nombreArch = "vehiculo.txt";
-        public void AgregarVehiculo(Vehiculo vehiculo)//fachero
+
+        public void AgregarVehiculo(Vehiculo vehiculo)
         {
-            if (File.Exists(_nombreArch))
+            using (var context = new AseguradoraContext())
             {
-                using var sr = new StreamReader(_nombreArch);
-                while (!sr.EndOfStream)
+                bool existe = context.Vehiculos.FirstOrDefault(a => a.Dominio == vehiculo.Dominio) != null;
+                if (!existe)
                 {
-                    string? linea = sr.ReadLine() ?? "";
-                    if (linea.Split('#')[1] == vehiculo.Dominio)
-                        throw new Exception($"Ya existe un vehiculo con Dominio = {vehiculo.Dominio}");
+                    context.Add(vehiculo);
+                    context.SaveChanges();
+                }
+                else
+                {
+                    throw new Exception("Ya existe un vehiculo con ese Dominio");
                 }
             }
-            using var sw = new StreamWriter(_nombreArch, true);
-            vehiculo.Id = _contador++;
-            sw.WriteLine($"{vehiculo.Id}#{vehiculo.Dominio}#{vehiculo.Marca}#{vehiculo.Anio}#{vehiculo.TitularId}");
-
         }
 
         public void ModificarVehiculo(Vehiculo vehiculo)
         {
-            using var sr = new StreamReader(_nombreArch);
-            List<String> lineas = new List<string>();
-            while (!sr.EndOfStream)
+            using (var context = new AseguradoraContext())
             {
-                string linea = sr.ReadLine() ?? "";
-                if ((linea.Split('#')[1]) != vehiculo.Dominio)
+                var vehiculoViejo = context.Vehiculos.FirstOrDefault(v => v.Dominio == vehiculo.Dominio);
+                if (vehiculoViejo != null)
                 {
-                    lineas.Add(linea);
+                    vehiculoViejo.Anio = vehiculo.Anio;
+                    vehiculoViejo.TitularId = vehiculo.TitularId;
+                    vehiculoViejo.Marca = vehiculo.Marca;
+                    context.SaveChanges();
                 }
-                else
-                {
-                    vehiculo.Id = int.Parse(linea.Split('#')[0]);
-                    lineas.Add($"{vehiculo.Id}#{vehiculo.Dominio}#{vehiculo.Marca}#{vehiculo.Anio}#{vehiculo.TitularId}");
-                }
-            }
-            using var sw = new StreamWriter(_nombreArch);
-            foreach (string item in lineas)
-            {
-                sw.WriteLine(item);
             }
         }
 
-        public void EliminarVehiculo(int id) //si es el que quiero eliminar no lo agrego a la lista la cual reescribo despues
+        public void EliminarVehiculo(int id)
         {
-            using var sr = new StreamReader(_nombreArch);
-            List<String> lineas = new List<string>();
-            while (!sr.EndOfStream)
+            using (var context = new AseguradoraContext())
             {
-                string linea = sr.ReadLine() ?? "";
-                if (int.Parse(linea.Split('#')[0]) != id)
+                var vehiculo = context.Vehiculos.FirstOrDefault(v => v.Id == id);
+                if (vehiculo != null)
                 {
-                    lineas.Add(linea);
+                    context.Remove(vehiculo);
+                    context.SaveChanges();
                 }
-            }
-            using var sw = new StreamWriter(_nombreArch);
-            foreach (string item in lineas)
-            {
-                sw.WriteLine(item);
             }
         }
 
         public List<Vehiculo> ListarVehiculos()
         {
-            var resultado = new List<Vehiculo>();
-            using var sr = new StreamReader(_nombreArch);
-            while (!sr.EndOfStream)
+            using (var context = new AseguradoraContext())
             {
-                string[] campos = (sr.ReadLine() ?? "").Split('#');
-                var vehiculo = new Vehiculo(campos[1], campos[2], int.Parse(campos[3]), int.Parse(campos[4]));
-                vehiculo.Id = int.Parse(campos[0]);
-                resultado.Add(vehiculo);
+                return context.Vehiculos.ToList();
             }
-            return resultado;
         }
+        //public void ListaVehiculosDeTitular
     }
 }
