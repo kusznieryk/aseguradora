@@ -1,7 +1,7 @@
 using Aseguradora.Aplicacion.Entidades;
 using Aseguradora.Aplicacion.Interfaces;
 namespace Aseguradora.Aplicacion.UseCases;
-class ListarTitularesConSusVehiculosUseCase
+public class ListarTitularesConSusVehiculosUseCase
 {
     //modificar este use case con el metodo que creemos en el repositorio
 
