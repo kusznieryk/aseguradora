@@ -1,5 +1,6 @@
-using Aseguradora.Aplicacion;
-namespace Aseguradora.Aplicacion;
+using Aseguradora.Aplicacion.Entidades;
+using Aseguradora.Aplicacion.Interfaces;
+namespace Aseguradora.Aplicacion.UseCases;
 class ListarTitularesConSusVehiculosUseCase
 {
     //modificar este use case con el metodo que creemos en el repositorio
@@ -18,11 +19,12 @@ class ListarTitularesConSusVehiculosUseCase
         List<Titular> titulares = _listarTitulares.Ejecutar();
         foreach (Titular t in titulares)
         {
-            foreach (Vehiculo v in vehiculos)
-            {
-                if (v.TitularId == t.Id) 
-                    t.ListaVehiculos.Add(v);
-            }
+        //REVISAR
+            // foreach (Vehiculo v in vehiculos)
+            // {
+            //     if (v.TitularId == t.Id) 
+            //        t.ListaVehiculos.Add(v);
+            // }
         }
         return titulares;
 

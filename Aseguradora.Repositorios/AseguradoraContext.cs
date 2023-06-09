@@ -1,6 +1,7 @@
-namespace Aseguradora.Repositorios;
 using Microsoft.EntityFrameworkCore;
-using Aseguradora.Aplicacion;
+using Aseguradora.Aplicacion.Entidades;
+using Aseguradora.Aplicacion.Interfaces;
+namespace Aseguradora.Repositorios;
 public class AseguradoraContext : DbContext
 {
 #nullable disable

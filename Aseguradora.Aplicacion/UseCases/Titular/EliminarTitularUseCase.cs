@@ -1,14 +1,16 @@
-namespace Aseguradora.Aplicacion
+using Aseguradora.Aplicacion.Entidades;
+using Aseguradora.Aplicacion.Interfaces;
+namespace Aseguradora.Aplicacion.UseCases;
+public class EliminarTitularUseCase
 {
-    public class EliminarTitularUseCase
-    {
-        private readonly IRepositorioTitular _repo;
+    private readonly IRepositorioTitular _repo;
 
-        public EliminarTitularUseCase(IRepositorioTitular repo){
-            this._repo = repo;
-        }
-        public void Ejecutar(int id){
-            _repo.EliminarTitular(id);
-        }
+    public EliminarTitularUseCase(IRepositorioTitular repo)
+    {
+        this._repo = repo;
+    }
+    public void Ejecutar(int id)
+    {
+        _repo.EliminarTitular(id);
     }
 }

@@ -1,16 +1,16 @@
-namespace Aseguradora.Aplicacion
+using Aseguradora.Aplicacion.Entidades;
+using Aseguradora.Aplicacion.Interfaces;
+namespace Aseguradora.Aplicacion.UseCases;
+public class ListarPolizasUseCase
 {
-    public class ListarPolizasUseCase
-    {
-        private readonly IRepositorioPoliza _repo;
+    private readonly IRepositorioPoliza _repo;
 
-        public ListarPolizasUseCase(IRepositorioPoliza repo)
-        {
-            this._repo = repo;
-        }
-        public List<Poliza> Ejecutar()
-        {
-            return _repo.ListarPolizas();
-        }
+    public ListarPolizasUseCase(IRepositorioPoliza repo)
+    {
+        this._repo = repo;
+    }
+    public List<Poliza> Ejecutar()
+    {
+        return _repo.ListarPolizas();
     }
 }
