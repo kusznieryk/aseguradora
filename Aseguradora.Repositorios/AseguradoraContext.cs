@@ -20,4 +20,14 @@ public class AseguradoraContext : DbContext
     {
         optionsBuilder.UseSqlite("data source=Aseguradora.sqlite");
     }
+     #region Required
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Poliza>()
+            .Property(p => p.Cobertura)
+            .HasConversion(
+                v => v.ToString(),
+                v => (Cobertura)Enum.Parse(typeof(Cobertura), v));
+    }
+    #endregion
 }

@@ -8,14 +8,15 @@ public class Poliza
     public Cobertura Cobertura { get; set; }
     public DateTime FechaInicio { get; set; }
     public DateTime FechaFin { get; set; }
-    public Poliza(int vehiculoID, decimal valorAsegurado, decimal franquicia, string cobertura, DateTime fechaInicio, DateTime fechaFin)
+    public Poliza(int vehiculoID, decimal valorAsegurado, decimal franquicia, Cobertura cobertura, DateTime fechaInicio, DateTime fechaFin)
     {
-        Cobertura aux = new Cobertura();
-        Enum.TryParse(cobertura, out aux);
+        // TCobertura aux = new TCobertura(); DUDOSO
+        // Enum.TryParse(cobertura, out aux);
         this.VehiculoID = vehiculoID;
         this.ValorAsegurado = valorAsegurado;
         this.Franquicia = franquicia;
-        this.Cobertura = aux;
+        // this.Cobertura = aux;
+        this.Cobertura = cobertura;
         this.FechaInicio = fechaInicio;
         this.FechaFin = fechaFin;
     }
