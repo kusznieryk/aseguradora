@@ -5,7 +5,7 @@ public class Titular : Persona
     public string Email { get; set; } = "";
     //public List<Vehiculo> ListaVehiculos { get; private set; } = new List<Vehiculo>();
 
-    public Titular(int dni, string ap, string nom, string tel) : base(dni, ap, nom, tel) { }
+    public Titular(int dni, string apellido, string nombre, string telefono) : base(dni, apellido, nombre, telefono) { }
 
     public override string ToString()
     {
