@@ -8,7 +8,7 @@ abstract public class Persona
 
     public string Telefono { get; set; } = "";
 
-    public int Id { get; set; } = -1;
+    public int Id { get; set; } 
 
     public Persona(int dni, string ap, string nom, string telefono)
     {

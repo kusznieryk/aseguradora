@@ -1,0 +1,49 @@
+@page "/titular/{Id:int?}"
+@inject ObtenerTitularUseCase ObtenerTitularUseCase
+@inject ModificarTitularUseCase ModificarTitularUseCase
+@inject NavigationManager Navegador;
+@inject AgregarTitularUseCase AgregarTitularUseCase
+
+@if (_esNuevoTitular)
+{
+   <h3>Agregando un nuevo Titular</h3>
+}
+else
+{
+   <h3>Modificando al Titular "@_titular.Nombre"</h3>
+} 
+
+<input placeholder="Nombre" @bind="_titular.Nombre" class="form-control">
+<input placeholder="Apellido" @bind="_titular.Apellido" class="form-control">
+<button class="btn btn-primary" @onclick="Aceptar">Aceptar</button>
+
+@code {
+    Titular _titular = new Titular(0,"", "", "");
+    [Parameter] public int? Id { get; set; }
+    bool _esNuevoTitular = true;
+    protected override void OnParametersSet()
+    {
+        if (Id != null)
+        {
+            var cli_hallado = ObtenerTitularUseCase.Ejecutar(Id.Value);
+            if (cli_hallado != null)
+            {
+                _titular = cli_hallado;
+                _esNuevoTitular = false;
+            }
+        }
+    }
+   void Aceptar()
+   {
+       if (_esNuevoTitular)
+       {
+           AgregarTitularUseCase.Ejecutar(_titular);
+       }
+       else
+       {
+           ModificarTitularUseCase.Ejecutar(_titular);
+       }
+       _titular = new Titular(15,"", "", "");
+       Navegador.NavigateTo("listadoTitulares");
+   }  
+}

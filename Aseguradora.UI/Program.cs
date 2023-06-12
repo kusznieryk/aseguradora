@@ -13,11 +13,12 @@ builder.Services.AddServerSideBlazor();
 
 //agregamos estos servicios al contenedor DI
 builder.Services.AddTransient<AgregarTitularUseCase>();
+builder.Services.AddTransient<ObtenerTitularUseCase>();
 builder.Services.AddTransient<ListarTitularesUseCase>();
 builder.Services.AddTransient<EliminarTitularUseCase>();
 builder.Services.AddTransient<ModificarTitularUseCase>();
 builder.Services.AddTransient<ListarTitularesConSusVehiculosUseCase>();
-builder.Services.AddScoped<IRepositorioTitular, RepositorioTitular>(); //???
+builder.Services.AddScoped<IRepositorioTitular, RepositorioTitular>();
 
 builder.Services.AddTransient<AgregarVehiculoUseCase>();
 builder.Services.AddTransient<ListarVehiculosUseCase>();
