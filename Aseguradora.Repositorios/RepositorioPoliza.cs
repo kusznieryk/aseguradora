@@ -17,6 +17,12 @@ public class RepositorioPoliza : IRepositorioPoliza
             context.SaveChanges();
         }
     }
+    public Poliza? ObtenerPoliza(int id){
+      using (var context = new AseguradoraContext())
+        {
+            return context.Polizas?.FirstOrDefault(p=> p.Id==id)??null;
+        }  
+    }
 
     public void ModificarPoliza(Poliza poliza)
     {

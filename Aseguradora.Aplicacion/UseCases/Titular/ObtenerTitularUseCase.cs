@@ -9,8 +9,8 @@ public class ObtenerTitularUseCase
     {
         this._repo = repo;
     }
-    public void Ejecutar(int id)
+    public Titular? Ejecutar(int id)
     {
-        //_repo.ObtenerTitular(id);
+        return _repo.ObtenerTitular(id);
     }
 }

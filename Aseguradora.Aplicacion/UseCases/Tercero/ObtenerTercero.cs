@@ -9,8 +9,8 @@ public class ObtenerTerceroUseCase
     {
         this._repo = repo;
     }
-    public void Ejecutar(int id)
+    public Tercero? Ejecutar(int id)
     {
-        //_repo.ObtenerTercero(id);
+        return _repo.ObtenerTercero(id);
     }
 }

@@ -20,6 +20,13 @@ public class RepositorioTitular : IRepositorioTitular
             }
         }
     }
+    public Titular? ObtenerTitular(int id)
+    {
+        using (var context = new AseguradoraContext())
+        {
+            return context.Titulares?.FirstOrDefault(p => p.Id == id) ?? null;
+        }
+    }
 
     public void ModificarTitular(Titular titular)
     {

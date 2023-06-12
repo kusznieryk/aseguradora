@@ -20,6 +20,13 @@ public class RepositorioVehiculo : IRepositorioVehiculo
             }
         }
     }
+    public Vehiculo? ObtenerVehiculo(int id)
+    {
+        using (var context = new AseguradoraContext())
+        {
+            return context.Vehiculos?.FirstOrDefault(p => p.Id == id) ?? null;
+        }
+    }
 
     public void ModificarVehiculo(Vehiculo vehiculo)
     {

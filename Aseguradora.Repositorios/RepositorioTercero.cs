@@ -20,6 +20,13 @@ public class RepositorioTercero : IRepositorioTercero
             }
         }
     }
+    public Tercero? ObtenerTercero(int id)
+    {
+        using (var context = new AseguradoraContext())
+        {
+            return context.Terceros?.FirstOrDefault(p => p.Id == id) ?? null;
+        }
+    }
 
     public void ModificarTercero(Tercero tercero)
     {

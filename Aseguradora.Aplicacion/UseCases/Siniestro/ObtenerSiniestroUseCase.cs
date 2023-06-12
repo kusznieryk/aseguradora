@@ -9,8 +9,8 @@ public class ObtenerSiniestroUseCase
     {
         this._repo = repo;
     }
-    public void Ejecutar(int id)
+    public Siniestro? Ejecutar(int id)
     {
-        //_repo.ObtenerSiniestro(id);
+        return _repo.ObtenerSiniestro(id);
     }
 }

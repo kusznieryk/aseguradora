@@ -9,8 +9,8 @@ public class ObtenerVehiculoUseCase
     {
         this._repo = repo;
     }
-    public void Ejecutar(int id)
+    public Vehiculo? Ejecutar(int id)
     {
-        //_repo.ObtenerVehiculo(id);
+        return _repo.ObtenerVehiculo(id);
     }
 }

@@ -9,8 +9,8 @@ public class ObtenerPolizaUseCase
     {
         this._repo = repo;
     }
-    public void Ejecutar(int id)
+    public Poliza? Ejecutar(int id)
     {
-        //_repo.ObtenerPoliza(id);
+        return _repo.ObtenerPoliza(id);
     }
 }

@@ -13,9 +13,7 @@ public class AseguradoraContext : DbContext
     public DbSet<Siniestro> Siniestros { get; set; }
 
     public DbSet<Tercero> Terceros { get; set; }
-
-
-#nullable disable
+#nullable enable
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlite("data source=Aseguradora.sqlite");

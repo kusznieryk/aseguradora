@@ -12,7 +12,12 @@ public class RepositorioSiniestro : IRepositorioSiniestro
             context.SaveChanges();
         }
     }
-
+    public Siniestro? ObtenerSiniestro(int id){
+      using (var context = new AseguradoraContext())
+        {
+            return context.Siniestros?.FirstOrDefault(p=> p.Id==id)??null;
+        }  
+    }
     public void ModificarSiniestro(Siniestro siniestro)
     {
         using (var context = new AseguradoraContext())
