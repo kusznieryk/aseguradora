@@ -11,6 +11,10 @@
             <th>ID</th>
             <th>NOMBRE</th>
             <th>APELLIDO</th>
+            <th>DNI</th>
+            <th>TELEFONO</th>
+            <th>EMAIL</th>
+            <th>DIRECCION</th>
             <th>ACCIÓN</th>
         </tr>
     </thead>
@@ -21,6 +25,10 @@
                 <td>@cli.Id</td>
                 <td>@cli.Nombre</td>
                 <td>@cli.Apellido</td>
+                <td>@cli.Dni</td>
+                <td>@cli.Telefono</td>
+                <td>@cli.Email</td>
+                <td>@cli.Direccion</td>
                 <td>
                     <button class="btn btn-primary" @onclick="()=>ModificarCliente(cli)" >
                         <span class="oi oi-pencil"></span>

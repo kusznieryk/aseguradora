@@ -6,19 +6,33 @@
 
 @if (_esNuevoTitular)
 {
-   <h3>Agregando un nuevo Titular</h3>
+    <h3>Agregando un nuevo Titular</h3>
 }
 else
 {
-   <h3>Modificando al Titular "@_titular.Nombre"</h3>
-} 
+    <h3>Modificando al Titular "@_titular.Nombre"</h3>
+}
+<form @onsubmit="Aceptar">  
+<input placeholder="Nombre" @bind="_titular.Nombre" class="form-control" required="required">
+<input placeholder="Apellido" @bind="_titular.Apellido" class="form-control" required="required">
 
-<input placeholder="Nombre" @bind="_titular.Nombre" class="form-control">
-<input placeholder="Apellido" @bind="_titular.Apellido" class="form-control">
-<button class="btn btn-primary" @onclick="Aceptar">Aceptar</button>
+@if (_esNuevoTitular)
+{
+    <input placeholder="DNI" type="number" @bind="_dni" class="form-control" required="required">
+}
+else
+{
+    <input placeholder="DNI" @bind="_titular.Dni" class="form-control" disabled>
+}
 
+<input placeholder="Telefono" @bind="_titular.Telefono" class="form-control" required="required">
+<input placeholder="Email" @bind="_titular.Email" class="form-control" required="required">
+<input placeholder="Direccion" @bind="_titular.Direccion" class="form-control" required="required">
+<button type="submit" class="btn btn-primary" >Aceptar</button>
+</form>
 @code {
-    Titular _titular = new Titular(0,"", "", "");
+    Titular _titular = new Titular(0, "", "", "");
+    string _dni ="";
     [Parameter] public int? Id { get; set; }
     bool _esNuevoTitular = true;
     protected override void OnParametersSet()
@@ -33,17 +47,18 @@ else
             }
         }
     }
-   void Aceptar()
-   {
-       if (_esNuevoTitular)
-       {
-           AgregarTitularUseCase.Ejecutar(_titular);
-       }
-       else
-       {
-           ModificarTitularUseCase.Ejecutar(_titular);
-       }
-       _titular = new Titular(15,"", "", "");
-       Navegador.NavigateTo("listadoTitulares");
-   }  
+    void Aceptar()
+    {
+        if (_esNuevoTitular)
+        {
+            _titular.Dni= int.Parse(_dni);
+            AgregarTitularUseCase.Ejecutar(_titular);
+        }
+        else
+        {
+            ModificarTitularUseCase.Ejecutar(_titular);
+        }
+        _titular = new Titular(15, "", "", "");
+        Navegador.NavigateTo("listadoTitulares");
+    }
 }
