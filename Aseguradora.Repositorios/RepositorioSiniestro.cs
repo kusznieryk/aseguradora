@@ -6,17 +6,22 @@ public class RepositorioSiniestro : IRepositorioSiniestro
 
     public void AgregarSiniestro(Siniestro siniestro)
     {
+        Poliza poliza = new RepositorioPoliza().ObtenerPoliza(siniestro.IdPoliza) ?? throw new Exception("La poliza no existe");
+
+        if ((siniestro.FechaOcurrencia.CompareTo(poliza.FechaInicio) < 0) || (siniestro.FechaOcurrencia.CompareTo(poliza.FechaInicio) > 0))
+            throw new Exception("La fecha de ocurrencia del siniestro no esta en el rango de la poliza");
         using (var context = new AseguradoraContext())
         {
             context.Add(siniestro);
             context.SaveChanges();
         }
     }
-    public Siniestro? ObtenerSiniestro(int id){
-      using (var context = new AseguradoraContext())
+    public Siniestro? ObtenerSiniestro(int id)
+    {
+        using (var context = new AseguradoraContext())
         {
-            return context.Siniestros?.FirstOrDefault(p=> p.Id==id)??null;
-        }  
+            return context.Siniestros?.FirstOrDefault(p => p.Id == id) ?? null;
+        }
     }
     public void ModificarSiniestro(Siniestro siniestro)
     {
