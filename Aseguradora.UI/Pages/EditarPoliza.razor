@@ -1,0 +1,86 @@
+@page "/poliza/{Id:int?}"
+@inject ObtenerPolizaUseCase ObtenerPolizaUseCase
+@inject ModificarPolizaUseCase ModificarPolizaUseCase
+@inject NavigationManager Navegador;
+@inject AgregarPolizaUseCase AgregarPolizaUseCase
+
+
+@if (err.Length > 1)
+{
+    <h3>@err</h3>
+}
+@if (_esNuevaPoliza)
+{
+    <h3>Agregando una nueva Poliza</h3>
+}
+else
+{
+    <h3>Modificando a la Poliza "@_poliza.Id"</h3>
+}
+<form @onsubmit="Aceptar">
+    @if (!_esNuevaPoliza)
+    {
+        <input placeholder="ID" @bind="_poliza.Id" class="form-control" disabled>
+    }
+    <input type="number" placeholder="ID Vehiculo" @bind="idVeh" class="form-control" required="required">
+    <input type="number" step="0.01" placeholder="Valor Asegurado" @bind="valor" class="form-control" required="required">
+    <input type="number" step="0.01" placeholder="Franquicia" @bind="franq" class="form-control" required="required">
+    <InputRadioGroup @bind-Value="_poliza.Cobertura" TValue="@Cobertura">
+        @foreach (Cobertura cobert in Enum.GetValues(typeof(Cobertura)))
+        {
+            <label>
+                <input type="radio" name="cobertura" value="@cobert" />
+                @cobert
+            </label>
+            <br />
+        }
+    </InputRadioGroup>
+    <input placeholder="Fecha Inicio" type="date" @bind="_poliza.FechaInicio" class="form-control" required="required">
+    <input placeholder="Fecha Fin" type="date" @bind="_poliza.FechaFin" class="form-control" required="required">
+
+    <button type="submit" class="btn btn-primary">Aceptar</button>
+</form>
+@code {
+    Poliza _poliza = new Poliza(0, 0, 0, Cobertura.TodoRiesgo, DateTime.Now, DateTime.Now);
+    string _id = "";
+    string valor = "", franq = "", idVeh = "";
+    string err = "";
+    [Parameter] public int? Id { get; set; }
+    bool _esNuevaPoliza = true;
+    protected override void OnParametersSet()
+    {
+        if (Id != null)
+        {
+            var poli_hallada = ObtenerPolizaUseCase.Ejecutar(Id.Value);
+            if (poli_hallada != null)
+            {
+                _poliza = poli_hallada;
+                _esNuevaPoliza = false;
+            }
+        }
+    }
+    void Aceptar()
+    {
+        try
+        {
+            if (!_esNuevaPoliza)
+                _poliza.Id = int.Parse(_id);
+            _poliza.VehiculoID = int.Parse(idVeh);
+            _poliza.Franquicia = decimal.Parse(franq);
+            _poliza.ValorAsegurado = decimal.Parse(valor);
+            if (_esNuevaPoliza)
+            {
+                AgregarPolizaUseCase.Ejecutar(_poliza);
+            }
+            else
+            {
+                ModificarPolizaUseCase.Ejecutar(_poliza);
+            }
+            Navegador.NavigateTo("listadoPolizas");
+        }
+        catch (Exception e)
+        {
+            err = e.Message;
+        }
+    }
+}
