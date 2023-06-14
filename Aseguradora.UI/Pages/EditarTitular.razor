@@ -4,6 +4,11 @@
 @inject NavigationManager Navegador;
 @inject AgregarTitularUseCase AgregarTitularUseCase
 
+
+@if (err.Length > 1)
+{
+    <h3>@err</h3>
+}
 @if (_esNuevoTitular)
 {
     <h3>Agregando un nuevo Titular</h3>
@@ -12,27 +17,28 @@ else
 {
     <h3>Modificando al Titular "@_titular.Nombre"</h3>
 }
-<form @onsubmit="Aceptar">  
-<input placeholder="Nombre" @bind="_titular.Nombre" class="form-control" required="required">
-<input placeholder="Apellido" @bind="_titular.Apellido" class="form-control" required="required">
+<form @onsubmit="Aceptar">
+    <input placeholder="Nombre" @bind="_titular.Nombre" class="form-control" required="required">
+    <input placeholder="Apellido" @bind="_titular.Apellido" class="form-control" required="required">
 
-@if (_esNuevoTitular)
-{
-    <input placeholder="DNI" type="number" @bind="_dni" class="form-control" required="required">
-}
-else
-{
-    <input placeholder="DNI" @bind="_titular.Dni" class="form-control" disabled>
-}
+    @if (_esNuevoTitular)
+    {
+        <input placeholder="DNI" type="number" @bind="_dni" class="form-control" required="required">
+    }
+    else
+    {
+        <input placeholder="DNI" @bind="_titular.Dni" class="form-control" disabled>
+    }
 
-<input placeholder="Telefono" @bind="_titular.Telefono" class="form-control" required="required">
-<input placeholder="Email" @bind="_titular.Email" class="form-control" required="required">
-<input placeholder="Direccion" @bind="_titular.Direccion" class="form-control" required="required">
-<button type="submit" class="btn btn-primary" >Aceptar</button>
+    <input placeholder="Telefono" @bind="_titular.Telefono" class="form-control" required="required">
+    <input placeholder="Email" @bind="_titular.Email" class="form-control" required="required">
+    <input placeholder="Direccion" @bind="_titular.Direccion" class="form-control" required="required">
+    <button type="submit" class="btn btn-primary">Aceptar</button>
 </form>
 @code {
     Titular _titular = new Titular(0, "", "", "");
-    string _dni ="";
+    string _dni = "";
+    string err = "";
     [Parameter] public int? Id { get; set; }
     bool _esNuevoTitular = true;
     protected override void OnParametersSet()
@@ -49,16 +55,22 @@ else
     }
     void Aceptar()
     {
-        if (_esNuevoTitular)
+        try
         {
-            _titular.Dni= int.Parse(_dni);
-            AgregarTitularUseCase.Ejecutar(_titular);
+            if (_esNuevoTitular)
+            {
+                _titular.Dni = int.Parse(_dni);
+                AgregarTitularUseCase.Ejecutar(_titular);
+            }
+            else
+            {
+                ModificarTitularUseCase.Ejecutar(_titular);
+            }
+            Navegador.NavigateTo("listadoTitulares");
         }
-        else
+        catch (Exception e)
         {
-            ModificarTitularUseCase.Ejecutar(_titular);
+            err = e.Message;
         }
-        _titular = new Titular(15, "", "", "");
-        Navegador.NavigateTo("listadoTitulares");
     }
 }

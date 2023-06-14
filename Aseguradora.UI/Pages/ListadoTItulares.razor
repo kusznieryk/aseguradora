@@ -19,21 +19,21 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var cli in _lista)
+        @foreach (var titu in _lista)
         {
             <tr>
-                <td>@cli.Id</td>
-                <td>@cli.Nombre</td>
-                <td>@cli.Apellido</td>
-                <td>@cli.Dni</td>
-                <td>@cli.Telefono</td>
-                <td>@cli.Email</td>
-                <td>@cli.Direccion</td>
+                <td>@titu.Id</td>
+                <td>@titu.Nombre</td>
+                <td>@titu.Apellido</td>
+                <td>@titu.Dni</td>
+                <td>@titu.Telefono</td>
+                <td>@titu.Email</td>
+                <td>@titu.Direccion</td>
                 <td>
-                    <button class="btn btn-primary" @onclick="()=>ModificarCliente(cli)" >
+                    <button class="btn btn-primary" @onclick="()=>ModificarTitular(titu)" >
                         <span class="oi oi-pencil"></span>
                     </button>
-                    <button class="btn btn-danger" @onclick="()=>ConfirmarEliminacion(cli)">
+                    <button class="btn btn-danger" @onclick="()=>ConfirmarEliminacion(titu)">
                         <span class="oi oi-trash"></span>
                     </button>
                 </td>
@@ -51,15 +51,15 @@
 
     DialogoConfirmacion dialogo = null!;
     Titular? _TitularParaEliminar = null;
-    private void ConfirmarEliminacion(Titular cli)
+    private void ConfirmarEliminacion(Titular titu)
     {
-        _TitularParaEliminar = cli;
-        dialogo.Mensaje = $"¿Desea eliminar al Titular {cli.Nombre} {cli.Apellido}?";
+        _TitularParaEliminar = titu;
+        dialogo.Mensaje = $"¿Desea eliminar al Titular {titu.Nombre} {titu.Apellido}?";
         dialogo.Mostrar();
     }
-    void ModificarCliente(Titular cli)
+    void ModificarTitular(Titular titu)
     {
-        Navegador.NavigateTo($"titular/{cli.Id}");
+        Navegador.NavigateTo($"titular/{titu.Id}");
     }
     private void Eliminar()
     {
