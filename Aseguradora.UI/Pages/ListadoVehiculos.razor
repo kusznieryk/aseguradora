@@ -1,0 +1,68 @@
+@page "/listadoVehiculos"
+@inject ListarVehiculosUseCase ListarVehiculosUseCase
+@inject EliminarVehiculoUseCase EliminarVehiculoUseCase
+@inject NavigationManager Navegador;
+
+
+<DialogoConfirmacion @ref="dialogo" OnConfirmado="Eliminar" />
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>DOMINIO</th>
+            <th>MARCA</th>
+            <th>AÑO</th>
+            <th>ID TITULAR</th>
+            <th>ACCION</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var vehi in _lista)
+        {
+            <tr>
+                <td>@vehi.Id</td>
+                <td>@vehi.Dominio</td>
+                <td>@vehi.Marca</td>
+                <td>@vehi.Anio</td>
+                <td>@vehi.TitularId</td>
+                <td>
+                    <button class="btn btn-primary" @onclick="()=>ModificarVehiculo(vehi)" >
+                        <span class="oi oi-pencil"></span>
+                    </button>
+                    <button class="btn btn-danger" @onclick="()=>ConfirmarEliminacion(vehi)">
+                        <span class="oi oi-trash"></span>
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    List<Vehiculo> _lista = new List<Vehiculo>();
+    protected override void OnInitialized()
+    {
+        _lista = ListarVehiculosUseCase.Ejecutar();
+    }
+
+    DialogoConfirmacion dialogo = null!;
+    Vehiculo? _VehiculoParaEliminar = null;
+    private void ConfirmarEliminacion(Vehiculo vehi)
+    {
+        _VehiculoParaEliminar = vehi;
+        dialogo.Mensaje = $"¿Desea eliminar al Vehiculo con dominio {vehi.Dominio}?";
+        dialogo.Mostrar();
+    }
+    void ModificarVehiculo(Vehiculo vehi)
+    {
+        Navegador.NavigateTo($"Vehiculo/{vehi.Id}");
+    }
+    private void Eliminar()
+    {
+        if (_VehiculoParaEliminar != null)
+        {
+            EliminarVehiculoUseCase.Ejecutar(_VehiculoParaEliminar.Id);
+            _lista = ListarVehiculosUseCase.Ejecutar(); //se actualiza la lista de Vehiculos
+        }
+    }
+}

@@ -1,0 +1,75 @@
+@page "/vehiculo/{Id:int?}"
+@inject ObtenerVehiculoUseCase ObtenerVehiculoUseCase
+@inject ModificarVehiculoUseCase ModificarVehiculoUseCase
+@inject NavigationManager Navegador;
+@inject AgregarVehiculoUseCase AgregarVehiculoUseCase
+
+
+@if (err.Length > 1)
+{
+    <h3>@err</h3>
+}
+@if (_esNuevoVehiculo)
+{
+    <h3>Agregando un nuevo Vehiculo</h3>
+}
+else
+{
+    <h3>Modificando al Vehiculo "@_Vehiculo.Id"</h3>
+}
+<form @onsubmit="Aceptar">
+    @if (_esNuevoVehiculo)
+    {
+        <input placeholder="Dominio" @bind="_Vehiculo.Dominio" class="form-control" required="required">
+    }
+    else
+    {
+        <input placeholder="Dominio" @bind="_Vehiculo.Dominio" class="form-control" disabled>
+    }
+    <input placeholder="Marca" @bind="_Vehiculo.Marca" class="form-control" required="required">
+    <input placeholder="Año" type="number" @bind="_anio" class="form-control" required="required">
+    <input placeholder="Id del titular" type="number" @bind="_titularId" class="form-control" required="required">
+    <button type="submit" class="btn btn-primary">Aceptar</button>
+</form>
+
+@code {
+    Vehiculo _Vehiculo = new Vehiculo("", "", 0, 0);
+    string err = "";
+    string _anio = "";
+    string _titularId = "";
+    [Parameter] public int? Id { get; set; }
+    bool _esNuevoVehiculo = true;
+    protected override void OnParametersSet()
+    {
+        if (Id != null)
+        {
+            var vehi_hallado = ObtenerVehiculoUseCase.Ejecutar(Id.Value);
+            if (vehi_hallado != null)
+            {
+                _Vehiculo = vehi_hallado;
+                _esNuevoVehiculo = false;
+            }
+        }
+    }
+    void Aceptar()
+    {
+        try
+        {
+            _Vehiculo.Anio = int.Parse(_anio);
+            _Vehiculo.TitularId = int.Parse(_titularId);
+            if (_esNuevoVehiculo)
+            {
+                AgregarVehiculoUseCase.Ejecutar(_Vehiculo);
+            }
+            else
+            {
+                ModificarVehiculoUseCase.Ejecutar(_Vehiculo);
+            }
+            Navegador.NavigateTo("listadoVehiculos");
+        }
+        catch (Exception e)
+        {
+            err = e.Message;
+        }
+    }
+}
