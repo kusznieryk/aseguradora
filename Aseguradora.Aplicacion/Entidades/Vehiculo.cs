@@ -1,7 +1,7 @@
 namespace Aseguradora.Aplicacion.Entidades;
 public class Vehiculo
 {
-    public int Id { get; set; } = -1;
+    public int Id { get; set; }
     public string Dominio { get; set; }
     public string Marca { get; set; }
     public int Anio { get; set; }

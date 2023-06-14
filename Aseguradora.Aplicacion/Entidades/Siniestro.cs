@@ -2,7 +2,7 @@ namespace Aseguradora.Aplicacion.Entidades;
 
 public class Siniestro
 {
-    public int Id { get; set; } = -1;
+    public int Id { get; set; }
     public int IdPoliza { get; set; }
     public DateTime FechaIngreso { get; set; } = DateTime.Now;
     public DateTime FechaOcurrencia { get; set; }

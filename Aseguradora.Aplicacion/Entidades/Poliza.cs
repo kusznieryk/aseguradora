@@ -1,7 +1,7 @@
 namespace Aseguradora.Aplicacion.Entidades;
 public class Poliza
 {
-    public int Id { get; set; } = -1;
+    public int Id { get; set; }
     public int VehiculoID { get; set; }
     public decimal ValorAsegurado { get; set; }
     public decimal Franquicia { get; set; }

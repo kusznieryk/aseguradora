@@ -33,6 +33,7 @@ public class RepositorioVehiculo : IRepositorioVehiculo
         using (var context = new AseguradoraContext())
         {
             var vehiculoViejo = context.Vehiculos.FirstOrDefault(v => v.Dominio == vehiculo.Dominio);
+            var titular= new RepositorioTitular().ObtenerTitular(vehiculo.TitularId) ?? throw new Exception("No existe un titular con ese id");
             if (vehiculoViejo != null)
             {
                 vehiculoViejo.Anio = vehiculo.Anio;
