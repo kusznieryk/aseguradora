@@ -1,0 +1,69 @@
+@page "/listadoSiniestros"
+@inject ListarSiniestrosUseCase ListarSiniestrosUseCase
+@inject EliminarSiniestroUseCase EliminarSiniestroUseCase
+@inject NavigationManager Navegador;
+
+
+<DialogoConfirmacion @ref="dialogo" OnConfirmado="Eliminar" />
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>ID DE POLIZA</th>
+            <th>FECHA DE INGRESO</th>
+            <th>FECHA DE OCURRENCIA</th>
+            <th>DIRECCION</th>
+            <th>DESCRIPCION</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var sin in _lista)
+        {
+            <tr>
+                <td>@sin.Id</td>
+                <td>@sin.IdPoliza</td>
+                <td>@sin.FechaIngreso</td>
+                <td>@sin.FechaOcurrencia</td>
+                <td>@sin.Direccion</td>
+                <td>@sin.Descripcion</td>
+                <td>
+                    <button class="btn btn-primary" @onclick="()=>ModificarSiniestro(sin)" >
+                        <span class="oi oi-pencil"></span>
+                    </button>
+                    <button class="btn btn-danger" @onclick="()=>ConfirmarEliminacion(sin)">
+                        <span class="oi oi-trash"></span>
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    List<Siniestro> _lista = new List<Siniestro>();
+    protected override void OnInitialized()
+    {
+        _lista = ListarSiniestrosUseCase.Ejecutar();
+    }
+
+    DialogoConfirmacion dialogo = null!;
+    Siniestro? _SiniestroParaEliminar = null;
+    private void ConfirmarEliminacion(Siniestro sin)
+    {
+        _SiniestroParaEliminar = sin;
+        dialogo.Mensaje = $"¿Desea eliminar al Siniestro con ID{sin.Id}?";
+        dialogo.Mostrar();
+    }
+    void ModificarSiniestro(Siniestro sin)
+    {
+        Navegador.NavigateTo($"siniestro/{sin.Id}");
+    }
+    private void Eliminar()
+    {
+        if (_SiniestroParaEliminar != null)
+        {
+            EliminarSiniestroUseCase.Ejecutar(_SiniestroParaEliminar.Id);
+            _lista = ListarSiniestrosUseCase.Ejecutar(); //se actualiza la lista de Siniestros
+        }
+    }
+}

@@ -1,0 +1,75 @@
+@page "/siniestro/{Id:int?}"
+@inject ObtenerSiniestroUseCase ObtenerSiniestroUseCase
+@inject ModificarSiniestroUseCase ModificarSiniestroUseCase
+@inject NavigationManager Navegador;
+@inject AgregarSiniestroUseCase AgregarSiniestroUseCase
+
+
+@if (err.Length > 1)
+{
+    <h3>@err</h3>
+}
+@if (_esNuevoSiniestro)
+{
+    <h3>Agregando un nuevo Siniestro</h3>
+}
+else
+{
+    <h3>Modificando al Siniestro "@_siniestro.Id"</h3>
+}
+<form @onsubmit="Aceptar">
+    @if (!_esNuevoSiniestro)
+    {
+        <input placeholder="ID" @bind="_siniestro.Id" class="form-control" disabled>
+    }
+    <input placeholder="ID de poliza" @bind="_idpoliza" class="form-control" required="required">
+    <input placeholder="Fecha de Ingreso" type ="date"@bind="_siniestro.FechaIngreso" class="form-control" required="required">
+    <input placeholder="Fecha de Ocurrencia" type ="date"@bind="_siniestro.FechaOcurrencia" class="form-control" required="required">
+
+
+    <input placeholder="Direccion" @bind="_siniestro.Direccion" class="form-control" required="required">
+    <input placeholder="Descripcion" @bind="_siniestro.Descripcion" class="form-control" required="required">
+    <button type="submit" class="btn btn-primary">Aceptar</button>
+</form>
+@code {
+    Siniestro _siniestro = new Siniestro(0, DateTime.Now, "", "");
+    string _id = "";
+    string _idpoliza = "";
+    string err = "";
+    [Parameter] public int? Id { get; set; }
+    bool _esNuevoSiniestro = true;
+    protected override void OnParametersSet()
+    {
+        if (Id != null)
+        {
+            var sin_hallado = ObtenerSiniestroUseCase.Ejecutar(Id.Value);
+            if (sin_hallado != null)
+            {
+                _siniestro = sin_hallado;
+                _esNuevoSiniestro = false;
+            }
+        }
+    }
+    void Aceptar()
+    {
+        try
+        {
+            if (!_esNuevoSiniestro)
+                _siniestro.Id = int.Parse(_id);
+            _siniestro.IdPoliza = int.Parse(_idpoliza);
+            if (_esNuevoSiniestro)
+            {
+                AgregarSiniestroUseCase.Ejecutar(_siniestro);
+            }
+            else
+            {
+                ModificarSiniestroUseCase.Ejecutar(_siniestro);
+            }
+            Navegador.NavigateTo("listadoSiniestros");
+        }
+        catch (Exception e)
+        {
+            err = e.Message;
+        }
+    }
+}

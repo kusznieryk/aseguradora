@@ -1,0 +1,78 @@
+@page "/tercero/{Id:int?}"
+@inject ObtenerTerceroUseCase ObtenerTerceroUseCase
+@inject ModificarTerceroUseCase ModificarTerceroUseCase
+@inject NavigationManager Navegador;
+@inject AgregarTerceroUseCase AgregarTerceroUseCase
+
+
+@if (err.Length > 1)
+{
+    <h3>@err</h3>
+}
+@if (_esNuevoTercero)
+{
+    <h3>Agregando un nuevo Tercero</h3>
+}
+else
+{
+    <h3>Modificando al Tercero "@_tercero.Nombre"</h3>
+}
+<form @onsubmit="Aceptar">
+    <input placeholder="Nombre" @bind="_tercero.Nombre" class="form-control" required="required">
+    <input placeholder="Apellido" @bind="_tercero.Apellido" class="form-control" required="required">
+
+    @if (_esNuevoTercero)
+    {
+        <input placeholder="DNI" type="number" @bind="_dni" class="form-control" required="required">
+    }
+    else
+    {
+        <input placeholder="DNI" @bind="_tercero.Dni" class="form-control" disabled>
+    }
+
+    <input placeholder="Telefono" @bind="_tercero.Telefono" class="form-control" required="required">
+    <input placeholder="Nombre de la Aseguradora" @bind="_tercero.NombreAseguradora" class="form-control" required="required">
+    <input placeholder="ID del Siniestro" @bind="_idsiniestro" class="form-control" required="required">
+    <button type="submit" class="btn btn-primary">Aceptar</button>
+</form>
+@code {
+    Tercero _tercero = new Tercero("",0,0, "", "", "");
+    string _dni = "";
+    string _idsiniestro = "";
+    string err = "";
+    [Parameter] public int? Id { get; set; }
+    bool _esNuevoTercero = true;
+    protected override void OnParametersSet()
+    {
+        if (Id != null)
+        {
+            var ter_hallado = ObtenerTerceroUseCase.Ejecutar(Id.Value);
+            if (ter_hallado != null)
+            {
+                _tercero = ter_hallado;
+                _esNuevoTercero = false;
+            }
+        }
+    }
+    void Aceptar()
+    {
+        try
+        {
+            if (_esNuevoTercero)
+            {
+                _tercero.Dni = int.Parse(_dni);
+                _tercero.IdSiniestro = int.Parse(_idsiniestro);
+                AgregarTerceroUseCase.Ejecutar(_tercero);
+            }
+            else
+            {
+                ModificarTerceroUseCase.Ejecutar(_tercero);
+            }
+            Navegador.NavigateTo("listadoTerceros");
+        }
+        catch (Exception e)
+        {
+            err = e.Message;
+        }
+    }
+}
