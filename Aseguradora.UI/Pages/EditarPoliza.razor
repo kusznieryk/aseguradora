@@ -42,7 +42,6 @@ else
 </form>
 @code {
     Poliza _poliza = new Poliza(0, 0, 0, Cobertura.TodoRiesgo, DateTime.Now, DateTime.Now);
-    string _id = "";
     string valor = "", franq = "", idVeh = "";
     string err = "";
     [Parameter] public int? Id { get; set; }
@@ -63,8 +62,6 @@ else
     {
         try
         {
-            if (!_esNuevaPoliza)
-                _poliza.Id = int.Parse(_id);
             _poliza.VehiculoID = int.Parse(idVeh);
             _poliza.Franquicia = decimal.Parse(franq);
             _poliza.ValorAsegurado = decimal.Parse(valor);
