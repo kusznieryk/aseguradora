@@ -6,8 +6,6 @@ public class RepositorioTercero : IRepositorioTercero
 
     public void AgregarTercero(Tercero tercero)
     {
-        // Siniestro siniestro = new RepositorioSiniestro().ObtenerSiniestro(tercero.IdSiniestro) ?? throw new Exception("El siniestro no existe");
-
         using (var context = new AseguradoraContext())
         {
             bool existe = context.Terceros.FirstOrDefault(t => t.Dni == tercero.Dni && t.IdSiniestro == tercero.IdSiniestro) != null;
@@ -30,13 +28,15 @@ public class RepositorioTercero : IRepositorioTercero
     {
         using (var context = new AseguradoraContext())
         {
-            var terceroViejo = context.Terceros.FirstOrDefault(t => t.Dni == tercero.Dni && t.IdSiniestro == tercero.IdSiniestro);
+            var terceroViejo = context.Terceros.FirstOrDefault(t => t.Id==tercero.Id);
             if (terceroViejo != null)
             {
                 terceroViejo.Apellido = tercero.Apellido;
                 terceroViejo.Nombre = tercero.Nombre;
                 terceroViejo.NombreAseguradora = tercero.NombreAseguradora;
                 terceroViejo.Telefono = tercero.Telefono;
+                terceroViejo.IdSiniestro = tercero.IdSiniestro;
+                terceroViejo.Dni = tercero.Dni;
                 context.SaveChanges();
             }
         }

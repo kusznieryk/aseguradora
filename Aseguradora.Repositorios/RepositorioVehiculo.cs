@@ -24,7 +24,7 @@ public class RepositorioVehiculo : IRepositorioVehiculo
     {
         using (var context = new AseguradoraContext())
         {
-            return context.Vehiculos?.FirstOrDefault(p => p.Id == id) ?? null;
+            return context.Vehiculos.FirstOrDefault(p => p.Id == id);
         }
     }
 
@@ -33,7 +33,6 @@ public class RepositorioVehiculo : IRepositorioVehiculo
         using (var context = new AseguradoraContext())
         {
             var vehiculoViejo = context.Vehiculos.FirstOrDefault(v => v.Dominio == vehiculo.Dominio);
-            var titular= new RepositorioTitular().ObtenerTitular(vehiculo.TitularId) ?? throw new Exception("No existe un titular con ese id");
             if (vehiculoViejo != null)
             {
                 vehiculoViejo.Anio = vehiculo.Anio;
@@ -64,5 +63,4 @@ public class RepositorioVehiculo : IRepositorioVehiculo
             return context.Vehiculos.ToList();
         }
     }
-    //public void ListaVehiculosDeTitular
 }

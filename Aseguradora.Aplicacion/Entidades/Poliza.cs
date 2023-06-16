@@ -10,12 +10,9 @@ public class Poliza
     public DateTime FechaFin { get; set; }
     public Poliza(int vehiculoID, decimal valorAsegurado, decimal franquicia, Cobertura cobertura, DateTime fechaInicio, DateTime fechaFin)
     {
-        // TCobertura aux = new TCobertura(); DUDOSO
-        // Enum.TryParse(cobertura, out aux);
         this.VehiculoID = vehiculoID;
         this.ValorAsegurado = valorAsegurado;
         this.Franquicia = franquicia;
-        // this.Cobertura = aux;
         this.Cobertura = cobertura;
         this.FechaInicio = fechaInicio;
         this.FechaFin = fechaFin;

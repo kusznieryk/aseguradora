@@ -3,30 +3,13 @@ using Aseguradora.Aplicacion.Interfaces;
 namespace Aseguradora.Aplicacion.UseCases;
 public class ListarTitularesConSusVehiculosUseCase
 {
-    //modificar este use case con el metodo que creemos en el repositorio
-
-
-    private readonly ListarVehiculosUseCase _listarVehiculos;
-    private readonly ListarTitularesUseCase _listarTitulares;
-    public ListarTitularesConSusVehiculosUseCase(IRepositorioVehiculo repoV, IRepositorioTitular repoT)
+    private readonly IRepositorioTitular _repo;
+    public ListarTitularesConSusVehiculosUseCase(IRepositorioTitular repo)
     {
-        _listarVehiculos = new ListarVehiculosUseCase(repoV);
-        _listarTitulares = new ListarTitularesUseCase(repoT);
+        _repo=repo;
     }
     public List<Titular> Ejecutar()
     {
-        List<Vehiculo> vehiculos = _listarVehiculos.Ejecutar();
-        List<Titular> titulares = _listarTitulares.Ejecutar();
-        foreach (Titular t in titulares)
-        {
-        //REVISAR
-            // foreach (Vehiculo v in vehiculos)
-            // {
-            //     if (v.TitularId == t.Id) 
-            //        t.ListaVehiculos.Add(v);
-            // }
-        }
-        return titulares;
-
+        return _repo.ListarTitularesConSusVehiculos();
     }
 }

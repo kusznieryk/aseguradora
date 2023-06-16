@@ -3,7 +3,7 @@ public class Titular : Persona
 {
     public string Direccion { get; set; } = "";
     public string Email { get; set; } = "";
-    //public List<Vehiculo> ListaVehiculos { get; private set; } = new List<Vehiculo>();
+    public List<Vehiculo> Vehiculos { get; private set; } = new List<Vehiculo>();
 
     public Titular(int dni, string apellido, string nombre, string telefono) : base(dni, apellido, nombre, telefono) { }
 

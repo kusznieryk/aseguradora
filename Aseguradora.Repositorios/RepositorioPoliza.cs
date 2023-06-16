@@ -8,8 +8,6 @@ public class RepositorioPoliza : IRepositorioPoliza
     {
         using (var context = new AseguradoraContext())
         {
-            //si falla mirar aca p.Cobertura==poliza.Cobertura
-            //no permitimos agregar polizas del pasado
             bool existe = context.Polizas.FirstOrDefault((p => p.VehiculoID == poliza.VehiculoID && (poliza.FechaInicio <= p.FechaFin))) != null;
             if (existe)
                 throw new Exception("Ya existe una Poliza con ese vehiculo id en ese rango de tiempo");

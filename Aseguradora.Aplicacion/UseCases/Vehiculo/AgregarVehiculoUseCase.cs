@@ -4,24 +4,18 @@ namespace Aseguradora.Aplicacion.UseCases;
 public class AgregarVehiculoUseCase
 {
     private readonly IRepositorioVehiculo _repo;
-    private readonly ListarTitularesUseCase _listarTitulares;
+    private readonly ObtenerTitularUseCase _obtenerTitular;
+
     public AgregarVehiculoUseCase(IRepositorioVehiculo repo, IRepositorioTitular repoT)
     {
         this._repo = repo;
-        this._listarTitulares = new ListarTitularesUseCase(repoT);
+        _obtenerTitular = new ObtenerTitularUseCase(repoT);
     }
     public void Ejecutar(Vehiculo vehiculo)
     {
-        List<Titular> lista = _listarTitulares.Ejecutar();
-        bool existe = false;
-        foreach (Titular t in lista)
-        {
-            existe = existe || (t.Id == vehiculo.TitularId);
-        }
-        if (!existe)
-            throw new Exception("No existe ningun Titular con ese ID");
+        if (_obtenerTitular.Ejecutar(vehiculo.TitularId)==null)
+            throw new Exception("No existe ningun titular con ese ID");
 
         _repo.AgregarVehiculo(vehiculo);
-
     }
 }
