@@ -103,7 +103,7 @@
         if (_TitularParaEliminar != null)
         {
             EliminarTitularUseCase.Ejecutar(_TitularParaEliminar.Dni);
-            _lista = ListarTitularesConSusVehiculosUseCase.Ejecutar(); //se actualiza la lista de Titulares
+            _lista = ListarTitularesConSusVehiculosUseCase.Ejecutar(); 
         }
     }
 
@@ -122,7 +122,7 @@
         if (_VehiculoParaEliminar != null)
         {
             EliminarVehiculoUseCase.Ejecutar(_VehiculoParaEliminar.Id);
-            _lista = ListarTitularesConSusVehiculosUseCase.Ejecutar(); //se actualiza la lista de Vehiculos
+            _lista = ListarTitularesConSusVehiculosUseCase.Ejecutar(); 
         }
     }
 }
