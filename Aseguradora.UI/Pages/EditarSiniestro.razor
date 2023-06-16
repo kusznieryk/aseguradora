@@ -15,25 +15,29 @@
 }
 else
 {
-    <h3>Modificando al Siniestro "@_siniestro.Id"</h3>
+    <h3>Modificando al Siniestro con Id "@_siniestro.Id"</h3>
 }
 <form @onsubmit="Aceptar">
-    @if (!_esNuevoSiniestro)
-    {
-        <input placeholder="ID" @bind="_siniestro.Id" class="form-control" disabled>
-    }
-    <input placeholder="ID de poliza" @bind="_idpoliza" class="form-control" required="required">
-    <input placeholder="Fecha de Ingreso" type ="date"@bind="_siniestro.FechaIngreso" class="form-control" required="required">
-    <input placeholder="Fecha de Ocurrencia" type ="date"@bind="_siniestro.FechaOcurrencia" class="form-control" required="required">
-
-
-    <input placeholder="Direccion" @bind="_siniestro.Direccion" class="form-control" required="required">
-    <input placeholder="Descripcion" @bind="_siniestro.Descripcion" class="form-control" required="required">
+    <label class="form-control">
+        ID Poliza:
+    <input placeholder="" @bind="_idpoliza" required="required">
+    </label>
+   <label class="form-control" >
+    Fecha de Ocurrencia: 
+    <input placeholder="" type ="date"@bind="_siniestro.FechaOcurrencia" required="required">
+   </label>
+    <label class="form-control">
+        Direccion:
+    <input placeholder="" @bind="_siniestro.Direccion" required="required">
+    </label>
+    <label class="form-control">
+        Descripcion:
+    <input placeholder="" @bind="_siniestro.Descripcion"  required="required">
+    </label>
     <button type="submit" class="btn btn-primary">Aceptar</button>
 </form>
 @code {
     Siniestro _siniestro = new Siniestro(0, DateTime.Now, "", "");
-    string _id = "";
     string _idpoliza = "";
     string err = "";
     [Parameter] public int? Id { get; set; }
@@ -54,8 +58,6 @@ else
     {
         try
         {
-            if (!_esNuevoSiniestro)
-                _siniestro.Id = int.Parse(_id);
             _siniestro.IdPoliza = int.Parse(_idpoliza);
             if (_esNuevoSiniestro)
             {

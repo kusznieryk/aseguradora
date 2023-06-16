@@ -1,0 +1,128 @@
+@page "/listadoTitularesConV"
+@inject NavigationManager Navegador;
+@inject EliminarTitularUseCase EliminarTitularUseCase
+@inject EliminarVehiculoUseCase EliminarVehiculoUseCase
+@inject ListarTitularesConSusVehiculosUseCase ListarTitularesConSusVehiculosUseCase
+
+<DialogoConfirmacion @ref="dialogoT" OnConfirmado="EliminarT" />
+<DialogoConfirmacion @ref="dialogo" OnConfirmado="Eliminar" />
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>NOMBRE</th>
+            <th>APELLIDO</th>
+            <th>DNI</th>
+            <th>TELEFONO</th>
+            <th>EMAIL</th>
+            <th>DIRECCION</th>
+            <th>ACCIÓN</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var titu in _lista)
+        {
+            <tr>
+                <td>@titu.Id</td>
+                <td>@titu.Nombre</td>
+                <td>@titu.Apellido</td>
+                <td>@titu.Dni</td>
+                <td>@titu.Telefono</td>
+                <td>@titu.Email</td>
+                <td>@titu.Direccion</td>
+                <td>
+                    <button class="btn btn-primary" @onclick="()=>ModificarTitular(titu)">
+                        <span class="oi oi-pencil"></span>
+                    </button>
+                    <button class="btn btn-danger" @onclick="()=>ConfirmarEliminacionT(titu)">
+                        <span class="oi oi-trash"></span>
+                    </button>
+                </td>
+            </tr>
+            @if(titu.Vehiculos.Count>0){
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>DOMINIO</th>
+                            <th>MARCA</th>
+                            <th>AÑO</th>
+                            <th>ACCION</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var vehi in @titu.Vehiculos)
+                    {
+                            <tr>
+                                <td>@vehi.Id</td>
+                                <td>@vehi.Dominio</td>
+                                <td>@vehi.Marca</td>
+                                <td>@vehi.Anio</td>
+                                <td>
+                                    <button class="btn btn-primary" @onclick="()=>ModificarVehiculo(vehi)" >
+                                        <span class="oi oi-pencil"></span>
+                                    </button>
+                                    <button class="btn btn-danger" @onclick="()=>ConfirmarEliminacion(vehi)">
+                                        <span class="oi oi-trash"></span>
+                                    </button>
+                                </td>
+                            </tr>
+                    }
+                    </tbody>
+                </table>
+            }
+        }
+        <hr />
+    </tbody>
+</table>
+
+@code {
+    List<Titular> _lista = new List<Titular>();
+    protected override void OnInitialized()
+    {
+        _lista = ListarTitularesConSusVehiculosUseCase.Ejecutar();
+    }
+
+    DialogoConfirmacion dialogo = null!;
+    Vehiculo? _VehiculoParaEliminar = null;
+
+    DialogoConfirmacion dialogoT = null!;
+    Titular? _TitularParaEliminar = null;
+    private void ConfirmarEliminacionT(Titular titu)
+    {
+        _TitularParaEliminar = titu;
+        dialogoT.Mensaje = $"¿Desea eliminar al Titular {titu.Nombre} {titu.Apellido}?";
+        dialogoT.Mostrar();
+    }
+    void ModificarTitular(Titular titu)
+    {
+        Navegador.NavigateTo($"titular/{titu.Id}");
+    }
+    private void EliminarT()
+    {
+        if (_TitularParaEliminar != null)
+        {
+            EliminarTitularUseCase.Ejecutar(_TitularParaEliminar.Dni);
+            _lista = ListarTitularesConSusVehiculosUseCase.Ejecutar(); //se actualiza la lista de Titulares
+        }
+    }
+
+    private void ConfirmarEliminacion(Vehiculo vehi)
+    {
+        _VehiculoParaEliminar = vehi;
+        dialogo.Mensaje = $"¿Desea eliminar al Vehiculo con dominio {vehi.Dominio}?";
+        dialogo.Mostrar();
+    }
+    void ModificarVehiculo(Vehiculo vehi)
+    {
+        Navegador.NavigateTo($"Vehiculo/{vehi.Id}");
+    }
+    private void Eliminar()
+    {
+        if (_VehiculoParaEliminar != null)
+        {
+            EliminarVehiculoUseCase.Ejecutar(_VehiculoParaEliminar.Id);
+            _lista = ListarTitularesConSusVehiculosUseCase.Ejecutar(); //se actualiza la lista de Vehiculos
+        }
+    }
+}

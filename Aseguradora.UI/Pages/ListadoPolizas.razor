@@ -13,8 +13,8 @@
             <th>VALOR ASEGURADO</th>
             <th>FRANQUICIA</th>
             <th>COBERTURA</th>
-            <th>FECHA DE INICIO</th>
-            <th>FECHA DE FIN</th>
+            <th>INICIO</th>
+            <th>FIN</th>
             <th>ACCIÓN</th>
         </tr>
     </thead>
@@ -27,8 +27,8 @@
                 <td>@poli.ValorAsegurado</td>
                 <td>@poli.Franquicia</td>
                 <td>@poli.Cobertura</td>
-                <td>@poli.FechaInicio</td>
-                <td>@poli.FechaFin</td>
+                <td>@poli.FechaInicio.ToShortDateString()</td>
+                <td>@poli.FechaFin.ToShortDateString()</td>
                 <td>
                     <button class="btn btn-primary" @onclick="()=>ModificarPoliza(poli)" >
                         <span class="oi oi-pencil"></span>

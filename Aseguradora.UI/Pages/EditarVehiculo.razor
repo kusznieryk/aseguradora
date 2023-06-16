@@ -15,20 +15,32 @@
 }
 else
 {
-    <h3>Modificando al Vehiculo "@_Vehiculo.Id"</h3>
+    <h3>Modificando al Vehiculo con Dominio "@_Vehiculo.Dominio"</h3>
 }
 <form @onsubmit="Aceptar">
+    <label class="form-control">
+        Dominio:
     @if (_esNuevoVehiculo)
     {
-        <input placeholder="Dominio" @bind="_Vehiculo.Dominio" class="form-control" required="required">
+        <input placeholder="" @bind="_Vehiculo.Dominio"  required="required">
     }
     else
     {
-        <input placeholder="Dominio" @bind="_Vehiculo.Dominio" class="form-control" disabled>
+        <input placeholder="" @bind="_Vehiculo.Dominio" disabled>
     }
-    <input placeholder="Marca" @bind="_Vehiculo.Marca" class="form-control" required="required">
-    <input placeholder="Año" type="number" @bind="_anio" class="form-control" required="required">
-    <input placeholder="Id del titular" type="number" @bind="_titularId" class="form-control" required="required">
+    </label>
+    <label class="form-control">
+        Marca:
+    <input placeholder="" @bind="_Vehiculo.Marca" required="required">
+    </label>
+    <label class="form-control">
+        Año:
+    <input placeholder="" type="number" @bind="_anio" required="required">
+    </label>
+    <label class="form-control">
+        ID Titular:
+    <input placeholder="" type="number" @bind="_titularId" required="required">
+    </label>
     <button type="submit" class="btn btn-primary">Aceptar</button>
 </form>
 

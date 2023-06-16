@@ -21,6 +21,9 @@
 .nav-item {
     font-size: 0.9rem;
     padding-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    padding:4%;
 }
 
     .nav-item:first-of-type {
@@ -63,6 +66,7 @@
     .nav-scrollable {
         /* Allow sidebar to scroll for tall menus */
         height: calc(100vh - 3.5rem);
+        width: 19rem;
         overflow-y: auto;
     }
 }

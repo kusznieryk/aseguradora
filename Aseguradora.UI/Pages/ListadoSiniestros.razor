@@ -10,8 +10,8 @@
         <tr>
             <th>ID</th>
             <th>ID DE POLIZA</th>
-            <th>FECHA DE INGRESO</th>
-            <th>FECHA DE OCURRENCIA</th>
+            <th>INGRESO</th>
+            <th>OCURRENCIA</th>
             <th>DIRECCION</th>
             <th>DESCRIPCION</th>
         </tr>
@@ -22,8 +22,8 @@
             <tr>
                 <td>@sin.Id</td>
                 <td>@sin.IdPoliza</td>
-                <td>@sin.FechaIngreso</td>
-                <td>@sin.FechaOcurrencia</td>
+                <td>@sin.FechaIngreso.ToShortDateString()</td>
+                <td>@sin.FechaOcurrencia.ToShortDateString()</td>
                 <td>@sin.Direccion</td>
                 <td>@sin.Descripcion</td>
                 <td>

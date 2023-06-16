@@ -15,24 +15,40 @@
 }
 else
 {
-    <h3>Modificando al Titular "@_titular.Nombre"</h3>
+    <h3>Modificando al Titular con DNI "@_titular.Dni"</h3>
 }
 <form @onsubmit="Aceptar">
-    <input placeholder="Nombre" @bind="_titular.Nombre" class="form-control" required="required">
-    <input placeholder="Apellido" @bind="_titular.Apellido" class="form-control" required="required">
-
+    <label class="form-control">
+        Nombre:
+    <input placeholder="" @bind="_titular.Nombre" required="required">
+    </label>
+    <label class="form-control">
+        Apellido:
+    <input placeholder="" @bind="_titular.Apellido" required="required">
+    </label>
+    <label class="form-control">
+        DNI:
     @if (_esNuevoTitular)
     {
-        <input placeholder="DNI" type="number" @bind="_dni" class="form-control" required="required">
+        <input placeholder="" type="number" @bind="_dni" required="required">
     }
     else
     {
-        <input placeholder="DNI" @bind="_titular.Dni" class="form-control" disabled>
+        <input placeholder="" @bind="_titular.Dni"  disabled>
     }
-
-    <input placeholder="Telefono" @bind="_titular.Telefono" class="form-control" required="required">
-    <input placeholder="Email" @bind="_titular.Email" class="form-control" required="required">
-    <input placeholder="Direccion" @bind="_titular.Direccion" class="form-control" required="required">
+    </label>
+    <label class="form-control">
+        Telefono:
+    <input placeholder="" @bind="_titular.Telefono" required="required">
+    </label>
+    <label class="form-control">
+        Email:
+    <input placeholder="" @bind="_titular.Email" required="required">
+    </label>
+    <label class="form-control">
+        Direccion:
+    <input placeholder="" @bind="_titular.Direccion" required="required">
+    </label>
     <button type="submit" class="btn btn-primary">Aceptar</button>
 </form>
 @code {
